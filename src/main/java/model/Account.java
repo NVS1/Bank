@@ -1,0 +1,58 @@
+package model;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+public class Account {
+    @Id
+    private String number;
+
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
+    @ManyToOne
+    private Client owner;
+    private BigDecimal money = new BigDecimal(0);
+
+    public Account(String number, Currency currency, Client owner) {
+        this.number = number;
+        this.currency = currency;
+        this.owner = owner;
+    }
+
+    public Account() {
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public Client getOwner() {
+        return owner;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public void setOwner(Client owner) {
+        this.owner = owner;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+}
+
