@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class Account {
@@ -12,7 +11,7 @@ public class Account {
     private Currency currency;
     @ManyToOne
     private Client owner;
-    private BigDecimal money = new BigDecimal(0);
+    private Long money = Long.valueOf(0);
 
     public Account(String number, Currency currency, Client owner) {
         this.number = number;
@@ -21,6 +20,16 @@ public class Account {
     }
 
     public Account() {
+    }
+    public boolean withdraw (Long amount){
+        if (amount>money){
+            return false;
+        }
+        money-=amount;
+        return true;
+    }
+    public void debit (Long amount){
+        money+=amount;
     }
 
     public String getNumber() {
@@ -35,7 +44,7 @@ public class Account {
         return owner;
     }
 
-    public BigDecimal getMoney() {
+    public Long getMoney() {
         return money;
     }
 
@@ -51,7 +60,7 @@ public class Account {
         this.owner = owner;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(Long money) {
         this.money = money;
     }
 }

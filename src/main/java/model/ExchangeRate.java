@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class ExchangeRate {
@@ -12,18 +11,18 @@ public class ExchangeRate {
     private Currency from;
     @Enumerated(EnumType.STRING)
     private Currency to;
-    private BigDecimal rate;
+    private Long rate;
 
     public ExchangeRate() {
     }
 
-    public ExchangeRate(Currency from, Currency to, BigDecimal rate) {
+    public ExchangeRate(Currency from, Currency to, Long rate) {
         this.from = from;
         this.to = to;
         this.rate = rate;
     }
-    public BigDecimal exchange(BigDecimal money){
-        return rate.multiply(money);
+    public Long exchange(Long money){
+        return money*rate;
     }
 
     public Long getId() {
@@ -38,7 +37,7 @@ public class ExchangeRate {
         return to;
     }
 
-    public BigDecimal getRate() {
+    public Long getRate() {
         return rate;
     }
 
@@ -54,7 +53,7 @@ public class ExchangeRate {
         this.to = to;
     }
 
-    public void setRate(BigDecimal rate) {
+    public void setRate(Long rate) {
         this.rate = rate;
     }
 }

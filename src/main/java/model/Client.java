@@ -15,17 +15,24 @@ public class Client {
     private List<Transaction> transactions = new ArrayList<>();
 
     public Client() {
+        addAccounts();
+    }
+    public Client(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+        addAccounts();
+    }
+    public void addTransaction (Transaction transaction){
+        transactions.add(transaction);
+    }
+
+    private void addAccounts (){
         Account uah = new Account(phone+Currency.UAH, Currency.UAH, this);
         Account usd = new Account(phone+Currency.USD, Currency.USD, this);
         Account eur = new Account(phone+Currency.EUR, Currency.EUR, this);
         accounts.add(uah);
-        accounts.add(eur);
         accounts.add(usd);
-    }
-
-    public Client(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
+        accounts.add(eur);
     }
 
     public String getName() {

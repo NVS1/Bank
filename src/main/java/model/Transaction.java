@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -9,13 +8,13 @@ public class Transaction {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Client client;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Account from;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Account to;
-    private BigDecimal money;
+    private Long money;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ExchangeRate exchangeRate;
 
@@ -26,13 +25,24 @@ public class Transaction {
 
     }
 
-    public Transaction(Client client, Account from, Account to, BigDecimal money, Date date) {
+    public Transaction(Client client, Account from, Account to, Long money) {
         this.client = client;
         this.from = from;
         this.to = to;
         this.money = money;
-        this.exchangeRate = exchangeRate;
-        this.date = date;
+    }
+    public boolean doTransactoin (){
+      if (from.withdraw(money)){
+          if (exchangeRate==null){
+              to.debit(money);
+          }else {
+              Long newSum = exchangeRate.exchange(money);
+              to.debit(newSum);
+          }
+          client.addTransaction(this);
+          return true;
+      }
+      return false;
     }
 
     public Long getId() {
@@ -51,7 +61,7 @@ public class Transaction {
         return to;
     }
 
-    public BigDecimal getMoney() {
+    public Long getMoney() {
         return money;
     }
 
@@ -79,7 +89,7 @@ public class Transaction {
         this.to = to;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(Long money) {
         this.money = money;
     }
 

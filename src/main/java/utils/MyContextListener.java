@@ -7,7 +7,7 @@ import javax.servlet.ServletContextListener;
 
 public class MyContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPATest");
         servletContextEvent.getServletContext().setAttribute("emf", factory);
     }
 
