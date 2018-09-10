@@ -19,14 +19,14 @@
     <form action="/clients" method="post">
         Name: <input type="text" name="name"><br>
         Phone number: <input type="number" name="phone"><br>
-        <input type="submit"><br>
+        <input type="submit" value="create"><br>
     </form>
     <a href="http://localhost:8080/clients">view all clients</a><br>
     <h2>Replenish an account</h2>
     <form action="/accounts" method="post">
         Number of account: <input type="text" name="number"><br>
         Amount of money: <input type="number" name="money"><br>
-        <input type="submit"><br>
+        <input type="submit" value="debit"><br>
     </form>
     <h2>Money transfer</h2>
     <form action="transactions" method="post">
@@ -34,12 +34,12 @@
         From account (number) <input type="text" name="from"><br>
         To account (number) <input type="text" name="to"><br>
         Amount of money: <input type="number" name="money"><br>
-        <input type="submit"><br>
+        <input type="submit" value="send"><br>
     </form>
     <h2>Amount of client's money (UAH)</h2>
     <form action="/money" method="post">
         Phone number: <input type="number" name="phone"><br>
-        <input type="submit"><br>
+        <input type="submit" value="get"><br>
     </form>
 </body>
 </html>

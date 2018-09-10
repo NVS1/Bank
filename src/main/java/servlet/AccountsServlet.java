@@ -8,6 +8,7 @@ import service.ClientService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "AccountsServlet", urlPatterns = "/accounts")
 public class AccountsServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String phone = request.getParameter("phone");
         EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
@@ -29,6 +30,30 @@ public class AccountsServlet extends HttpServlet {
             request.setAttribute("name", client.getName());
             request.setAttribute("accounts", accounts);
             request.getRequestDispatcher("accounts.jsp").forward(request,response);
+        } finally {
+            em.close();
+        }
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String number = request.getParameter("number");
+        String money = request.getParameter("money");
+        if (number.isEmpty() || money.isEmpty()){
+            response.getWriter().print("Error");
+        }
+        Double parseMoney = Double.parseDouble(money);
+        EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
+        EntityManager em = emf.createEntityManager();
+        JpaDAO accountDao = new AccountService(em);
+        em.getTransaction().begin();
+        try{
+            Account account = (Account) accountDao.get(number);
+            account.debit(parseMoney.longValue());
+            em.getTransaction().commit();
+            response.sendRedirect("/");
+        } catch (NoResultException ex){
+            response.getWriter().print("Account not found");
+        } catch (Exception ex){
+            em.getTransaction().rollback();
         } finally {
             em.close();
         }

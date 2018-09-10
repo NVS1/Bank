@@ -15,9 +15,8 @@ public class Transaction {
     @ManyToOne (cascade = CascadeType.ALL)
     private Account to;
     private Long money;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private ExchangeRate exchangeRate;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    private Rate rate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
@@ -31,18 +30,19 @@ public class Transaction {
         this.to = to;
         this.money = money;
     }
-    public boolean doTransactoin (){
+    public boolean doTransaction (){
       if (from.withdraw(money)){
-          if (exchangeRate==null){
+          if (rate ==null){
               to.debit(money);
           }else {
-              Long newSum = exchangeRate.exchange(money);
+              Long newSum = rate.exchange(money);
               to.debit(newSum);
           }
           client.addTransaction(this);
           return true;
+      }else {
+          return false;
       }
-      return false;
     }
 
     public Long getId() {
@@ -65,8 +65,8 @@ public class Transaction {
         return money;
     }
 
-    public ExchangeRate getExchangeRate() {
-        return exchangeRate;
+    public Rate getRate() {
+        return rate;
     }
 
     public Date getDate() {
@@ -93,8 +93,8 @@ public class Transaction {
         this.money = money;
     }
 
-    public void setExchangeRate(ExchangeRate exchangeRate) {
-        this.exchangeRate = exchangeRate;
+    public void setRate(Rate rate) {
+        this.rate = rate;
     }
 
     public void setDate(Date date) {

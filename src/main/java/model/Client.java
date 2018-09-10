@@ -66,4 +66,26 @@ public class Client {
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (!name.equals(client.name)) return false;
+        if (!phone.equals(client.phone)) return false;
+        if (!accounts.equals(client.accounts)) return false;
+        return transactions.equals(client.transactions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + phone.hashCode();
+        result = 31 * result + accounts.hashCode();
+        result = 31 * result + transactions.hashCode();
+        return result;
+    }
 }

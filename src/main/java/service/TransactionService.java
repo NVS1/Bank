@@ -10,4 +10,5 @@ public class TransactionService extends JpaDAO<Transaction, Integer> {
     public TransactionService(EntityManager em) {
         super(em, Transaction.class);
     }
+
 }

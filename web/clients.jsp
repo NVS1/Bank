@@ -16,10 +16,14 @@
         <tr>
             <td> Name: <c:out value="${client.name}" /><br></td>
             <td> Phone: <c:out value="${client.phone}" /><br></td>
-            <form action="/accounts" method="post">
-                <input type="text" hidden name="phone" value="${client.phone}"><br>
-                <input type="submit">
-            </form>
+            <td><form action="/accounts" method="get">
+                <input type="text" hidden name="phone" value="${client.phone}">
+                <input type="submit" value="accounts">
+            </form></td>
+            <td><form action="/transactions" method="get">
+                <input type="text" hidden name="phone" value="${client.phone}">
+                <input type="submit" value="transactions">
+            </form></td>
         </tr><br>
     </c:forEach>
 </body>

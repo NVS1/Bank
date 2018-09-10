@@ -6,7 +6,6 @@ import javax.persistence.*;
 public class Account {
     @Id
     private String number;
-
     @Enumerated(EnumType.STRING)
     private Currency currency;
     @ManyToOne
@@ -24,9 +23,10 @@ public class Account {
     public boolean withdraw (Long amount){
         if (amount>money){
             return false;
+        } else {
+            money-=amount;
+            return true;
         }
-        money-=amount;
-        return true;
     }
     public void debit (Long amount){
         money+=amount;

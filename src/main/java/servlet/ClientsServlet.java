@@ -26,8 +26,12 @@ public class ClientsServlet extends HttpServlet {
         JpaDAO clientDao = new ClientService(em);
         Client client = new Client(name, phone);
         try {
-            clientDao.add(client);
-            response.sendRedirect("/");
+            if (clientDao.get(phone)==null && !name.isEmpty() && !phone.isEmpty()){
+                clientDao.add(client);
+                response.sendRedirect("/");
+            }else {
+                response.getWriter().print("Error");
+            }
         } finally {
             em.close();
         }
