@@ -29,18 +29,27 @@ public class Transaction {
         this.to = to;
         this.money = money;
     }
-    public boolean doTransaction (){
-      if (from.withdraw(money)){
-          if (rate ==null){
-              to.debit(money);
+    public boolean doTransaction (EntityManager em){
+      em.getTransaction().begin();
+      try{
+          if (from.withdraw(money)){
+              if (rate ==null){
+                  to.debit(money);
+              }else {
+                  Long newSum = rate.exchange(money);
+                  to.debit(newSum);
+              }
+              client.addTransaction(this);
+              em.getTransaction().commit();
+              return true;
           }else {
-              Long newSum = rate.exchange(money);
-              to.debit(newSum);
+              return false;
           }
-          client.addTransaction(this);
-          return true;
-      }else {
+      } catch (Exception ex){
+          em.getTransaction().rollback();
           return false;
+      } finally {
+          em.close();
       }
     }
 

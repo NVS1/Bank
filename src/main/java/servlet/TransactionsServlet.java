@@ -32,7 +32,6 @@ public class TransactionsServlet extends HttpServlet {
             response.getWriter().print("Error");
         }
         Double parseMoney = Double.parseDouble(money)*100;
-
         EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
         JpaDAO clientDao = new ClientService(em);
@@ -56,15 +55,11 @@ public class TransactionsServlet extends HttpServlet {
             transaction.setRate(rate);
             transaction.setDate(new Date());
             transactionsDao.add(transaction);
-            em.getTransaction().begin();
-            try {
-                if (!transaction.doTransaction()){
-                    response.getWriter().print(" failed");
-                }
-                em.getTransaction().commit();
+            boolean success = transaction.doTransaction(em);
+            if (!success){
+                response.getWriter().print("Failed");
+            } else {
                 response.sendRedirect("/");
-            } finally {
-                em.close();
             }
         }
     }
