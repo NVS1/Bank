@@ -31,7 +31,7 @@ public class TransactionsServlet extends HttpServlet {
         if  (phone.isEmpty() || accountFrom.isEmpty() || accountTo.isEmpty() || money.isEmpty()){
             response.getWriter().print("Error");
         }
-        Double parseMoney = Double.parseDouble(money)*100;
+        Double parseMoney = Double.parseDouble(money)*1000;
         EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
         JpaDAO clientDao = new ClientService(em);

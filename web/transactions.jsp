@@ -17,7 +17,7 @@
     <c:forEach items="${transactions}" var="t">
         From account: <c:out value="${t.from.number}" /><br>
         To account: <c:out value="${t.to.number}" /><br>
-        Money: <c:out value="${t.money/100}" /><br>
+        Money: <c:out value="${t.money/1000}" /><br>
         Date: <c:out value="${t.date}" /><br><br>
     </c:forEach>
 </body>

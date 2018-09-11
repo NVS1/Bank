@@ -16,12 +16,12 @@ public class RateService extends JpaDAO<Rate, String> implements RateDAO {
     public void init() {
         getEm().getTransaction().begin();
         try{
-            getEm().persist(new Rate(Currency.USD.toString()+Currency.UAH.toString(), Currency.USD, Currency.UAH, (long)2810));
-            getEm().persist(new Rate(Currency.EUR.toString()+Currency.UAH.toString(), Currency.EUR, Currency.UAH, (long)3245));
-            getEm().persist(new Rate(Currency.USD.toString()+Currency.EUR.toString(), Currency.USD, Currency.EUR, (long)86));
+            getEm().persist(new Rate(Currency.USD.toString()+Currency.UAH.toString(), Currency.USD, Currency.UAH, (long)28100));
+            getEm().persist(new Rate(Currency.EUR.toString()+Currency.UAH.toString(), Currency.EUR, Currency.UAH, (long)32450));
+            getEm().persist(new Rate(Currency.USD.toString()+Currency.EUR.toString(), Currency.USD, Currency.EUR, (long)860));
             getEm().persist(new Rate(Currency.UAH.toString()+Currency.USD.toString(), Currency.UAH, Currency.USD, (long)35));
-            getEm().persist(new Rate(Currency.UAH.toString()+Currency.EUR.toString(), Currency.UAH, Currency.EUR, (long)3));
-            getEm().persist(new Rate(Currency.EUR.toString()+Currency.USD.toString(), Currency.EUR, Currency.USD, (long)116));
+            getEm().persist(new Rate(Currency.UAH.toString()+Currency.EUR.toString(), Currency.UAH, Currency.EUR, (long)30));
+            getEm().persist(new Rate(Currency.EUR.toString()+Currency.USD.toString(), Currency.EUR, Currency.USD, (long)1160));
             getEm().getTransaction().commit();
         } catch (Exception ex){
             getEm().getTransaction().rollback();

@@ -23,7 +23,7 @@ public class Rate {
     }
 
     public Long exchange(Long money){
-        return money/100*rate;
+        return money/1000*rate;
     }
 
     public String getId() {

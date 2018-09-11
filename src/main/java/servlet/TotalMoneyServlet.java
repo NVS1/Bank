@@ -39,6 +39,6 @@ public class TotalMoneyServlet extends HttpServlet {
                 totalMoney+=account.getMoneyInUAH(((RateService) rateDao).get(account.getCurrency().toString()+Currency.UAH));
             }
         }
-        response.getWriter().print("Total money = "+(totalMoney/100)+" UAH");
+        response.getWriter().print("Total money = "+(totalMoney/1000)+" UAH");
     }
 }

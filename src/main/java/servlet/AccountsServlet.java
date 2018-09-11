@@ -40,7 +40,7 @@ public class AccountsServlet extends HttpServlet {
         if (number.isEmpty() || money.isEmpty()){
             response.getWriter().print("Error");
         }
-        Double parseMoney = Double.parseDouble(money)*100;
+        Double parseMoney = Double.parseDouble(money)*1000;
         EntityManagerFactory emf = (EntityManagerFactory) getServletContext().getAttribute("emf");
         EntityManager em = emf.createEntityManager();
         JpaDAO accountDao = new AccountService(em);

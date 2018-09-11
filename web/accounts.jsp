@@ -16,7 +16,7 @@
     <c:forEach items="${accounts}" var="account">
         Number: <c:out value="${account.number}" /><br>
         Currency: <c:out value="${account.currency}" /><br>
-        Money: <c:out value="${account.money/100}" /><br><br>
+        Money: <c:out value="${account.money/1000}" /><br><br>
     </c:forEach>
 </body>
 </html>
