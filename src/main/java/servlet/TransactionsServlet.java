@@ -67,7 +67,6 @@ public class TransactionsServlet extends HttpServlet {
                 em.close();
             }
         }
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

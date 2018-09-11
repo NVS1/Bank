@@ -32,6 +32,14 @@ public class Account {
         money+=amount;
     }
 
+    public Long getMoneyInUAH (Rate rate){
+        if (currency.equals(Currency.UAH)){
+            return money;
+        }else {
+            return rate.exchange(money);
+        }
+    }
+
     public String getNumber() {
         return number;
     }
