@@ -3,7 +3,7 @@ package dao;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public abstract class JpaDAO<Entity,ID> implements GenericDAO<Entity, ID> {
+public abstract class JpaDAO<Entity, ID> implements GenericDAO<Entity, ID> {
     private EntityManager em;
     private Class<?> persistentClass;
 
@@ -26,7 +26,7 @@ public abstract class JpaDAO<Entity,ID> implements GenericDAO<Entity, ID> {
         try {
             em.persist(entity);
             em.getTransaction().commit();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             em.getTransaction().rollback();
             throw new RuntimeException(ex);
         }
@@ -34,13 +34,13 @@ public abstract class JpaDAO<Entity,ID> implements GenericDAO<Entity, ID> {
 
     @Override
     public Entity get(ID id) {
-       return (Entity) getEm().find(getPersistentClass(),id);
+        return (Entity) getEm().find(getPersistentClass(), id);
     }
 
     @Override
     public List<Entity> getAll() {
         return getEm()
-                .createQuery("SELECT x FROM "+getPersistentClass().getSimpleName()+" x")
+                .createQuery("SELECT x FROM " + getPersistentClass().getSimpleName() + " x")
                 .getResultList();
     }
 

@@ -22,13 +22,13 @@ public class MyContextListener implements ServletContextListener {
                 .getAttribute("emf");
         emf.close();
     }
-    public void addExchangeRate (EntityManager em){
+
+    public void addExchangeRate(EntityManager em) {
         RateDAO rateDAO = new RateService(em);
-        try{
+        try {
             rateDAO.init();
         } finally {
             em.close();
         }
     }
-
 }
