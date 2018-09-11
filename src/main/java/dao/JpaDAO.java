@@ -43,4 +43,5 @@ public abstract class JpaDAO<Entity,ID> implements GenericDAO<Entity, ID> {
                 .createQuery("SELECT x FROM "+getPersistentClass().getSimpleName()+" x")
                 .getResultList();
     }
+
 }
